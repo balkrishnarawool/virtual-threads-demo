@@ -6,21 +6,22 @@ import com.balarawool.vtdemo.server.Server;
 
 import java.io.IOException;
 
-public class App {
+public class GreeterApp {
+    public static int PLATFORM_THREADS_POOL_SIZE = 1000;
+
     public static void main(String[] args) throws IOException {
-        Server myServer = new Server(8080);
-        myServer.addRoute(HttpMethod.GET, "/testOne",
+        Server myServer = new Server(8001, false,PLATFORM_THREADS_POOL_SIZE);
+        myServer.addRoute(HttpMethod.GET, "/greet",
                 (req) -> {
-                    System.out.println("Request received");
                     try {
-                        Thread.sleep(5*1_000);
+                        Thread.sleep(1_000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    return new HttpResponse.Builder()
+                return new HttpResponse.Builder()
                             .setStatusCode(200)
-                            .addHeader("Content-Type", "text/html")
-                            .setEntity("<HTML> <P> Hello There... </P> </HTML>")
+                            .addHeader("Content-Type", "text")
+                            .setEntity("Hello")
                             .build();
                 }
         );

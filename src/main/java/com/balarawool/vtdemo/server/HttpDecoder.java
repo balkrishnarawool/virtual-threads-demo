@@ -44,6 +44,13 @@ public class HttpDecoder {
     }
     private static Optional<List<String>> readMessage(final InputStream inputStream) {
         try {
+            // TODO: Use proper solution.
+            // Not having this Thread.sleep() call, will result in treating requests as "Invalid requests..." unnecessarily.
+            try {
+                Thread.sleep(25);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             if (!(inputStream.available() > 0)) {
                 return Optional.empty();
             }
