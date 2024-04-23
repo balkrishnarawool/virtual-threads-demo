@@ -7,7 +7,7 @@ import com.balarawool.vtdemo.server.Server;
 import java.io.IOException;
 
 public class GreeterApp {
-    public static int PLATFORM_THREADS_POOL_SIZE = 100;
+    public static int PLATFORM_THREADS_POOL_SIZE = 10;
 
     public static void main(String[] args) throws IOException {
         Server myServer = new Server(8001, false, PLATFORM_THREADS_POOL_SIZE);
