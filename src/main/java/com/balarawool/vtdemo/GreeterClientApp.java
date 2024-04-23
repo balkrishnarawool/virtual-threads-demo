@@ -6,17 +6,16 @@ import com.balarawool.vtdemo.server.Server;
 import com.balarawool.vtdemo.util.HttpUtil;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 
 // Run this with --add-opens=java.base/java.lang=ALL-UNNAMED
 // Because there is a virtual-thread-reflection-trickery going on in class VirtualThreadHelper
 // which requires access to VirtualThread package-private constructor.
 
-public class VirtualThreadsApp {
+public class GreeterClientApp {
+    public static boolean USE_VIRTUAL_THREADS = true;
+
     public static void main(String[] args) throws IOException {
-        Server myServer = new Server(8000, true, 1);
+        Server myServer = new Server(8000, USE_VIRTUAL_THREADS, 1);
         myServer.addRoute(HttpMethod.GET, "/testVT",
                 (req) -> {
                     var response = HttpUtil.doSimpleGet("http://localhost:8001/greet");
