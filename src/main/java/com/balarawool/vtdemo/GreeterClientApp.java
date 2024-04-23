@@ -12,10 +12,10 @@ import java.io.IOException;
 // which requires access to VirtualThread package-private constructor.
 
 public class GreeterClientApp {
-    public static boolean USE_VIRTUAL_THREADS = true;
-
     public static void main(String[] args) throws IOException {
-        Server myServer = new Server(8000, USE_VIRTUAL_THREADS, 1);
+        var useVT = Boolean.parseBoolean(args[0].split("--useVT=")[1]);
+
+        Server myServer = new Server(8000, useVT, 1);
         myServer.addRoute(HttpMethod.GET, "/testVT",
                 (req) -> {
                     var response = HttpUtil.doSimpleGet("http://localhost:8001/greet");
